@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %} To-Do App : Home{% endblock %}
+
+{% block content %}
+    {% if all %}
+    <br>
+    <table class="table table-bordered">
+        <thead class = "thead-dark">
+        <tr>
+            <th>List(s)</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        {% for todoList in all %}
+            {% if todoList.finished == True %}
+            <tr class="table-secondary">
+                <td class="crossout" >{{ todoList.items }}</td>
+                <td><a href="{% url 'uncross' todoList.id %}">Uncross</a></td>
+                <td><a href="{% url 'delete' todoList.id %}">Delete</a></td>
+            </tr>
+            {% else %}
+             <tr>
+                <td>{{ todoList.items }}</td>
+                <td><a href="{% url 'crossout' todoList.id %}">Cross Out</a></td>
+                <td><a href="{% url 'delete' todoList.id %}">Delete</a></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+{% endblock %}
